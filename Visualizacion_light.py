@@ -331,6 +331,7 @@ for i, (var, nombre) in enumerate(extras_dict.items()):
         y=alt.Y(
             'mean(price):Q',
             title='Precio Medio (€)' if es_primero else None,
+            scale=alt.Scale(domain=[0, 350]),
             axis=alt.Axis(
                 labels=es_primero,
                 ticks=es_primero
@@ -352,7 +353,7 @@ for i, (var, nombre) in enumerate(extras_dict.items()):
         color=alt.Color(
             'Estado:N',
             scale=escala_extras,
-            legend=alt.Legend(title='Estado') if es_ultimo else None
+           legend= None
         ),
 
         tooltip=[
@@ -508,7 +509,7 @@ panoramica = alt.layer(
     color='independent'
 ).properties(
     title=alt.TitleParams(
-        text='Contexto Estacional Anual y Hitos Festivos',
+        text='Contexto Estacional Anual e Hitos Festivos',
         subtitle='Evolución macroscópica de precios frente al calendario vacacional nacional',
         anchor='start',
         dx=30
@@ -520,7 +521,7 @@ panoramica = alt.layer(
 # Gráficos para el ZOOM (ABRIL - JULIO)
 lineas_zoom = alt.Chart(df).mark_line(size=2).encode(
     x=alt.X('checkin_date:T', 
-            title='Detalle Temporal (Abril - Julio)',
+            title='Detalle Temporal',
             scale=alt.Scale(domain=brush)), 
     y=alt.Y('mean(price):Q', title='Precio Medio (€)', scale=alt.Scale(zero=False)),
     color=color_ciudades,
